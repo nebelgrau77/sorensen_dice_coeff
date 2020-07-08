@@ -67,20 +67,37 @@ fn get_bigrams(word: &str) -> Vec<&str> {
     
 }
 
+
 fn compare_bigrams(bigrams_a: &[&str], bigrams_b: &[&str]) -> u8 {
     
     // count how many bigrams are common between two words
-
-    let mut common: u8 = 0;
     
+    let mut common_count: u8 = 0;
+        
     for item_a in bigrams_a.iter() {
-        for item_b in bigrams_b.iter() {
-            if item_a == item_b {
-                common += 1;
-            }
+            
+        if is_in(item_a, &bigrams_b) {
+            common_count += 1;        
+        }    
+    }
+        
+    return common_count;
+}
+
+
+fn is_in(item: &str, vector: &[&str]) -> bool {
+    
+    // check if item is in vector
+
+    let mut result = false; 
+    
+    for i in vector.iter() {
+        if i.to_string() == item.to_string() {
+            result = true;
+            break;
         }
     }
-
-    return common; 
+    
+    return result;
     
 }
