@@ -1,6 +1,7 @@
 extern crate clap;
 
 use clap::{AppSettings, App, Arg};
+use std::borrow::Cow;
 
 fn main() {
 
@@ -50,18 +51,16 @@ fn sd_coeff(word_a: &str, word_b: &str) -> f32 {
     
 }
 
-fn get_bigrams(word: &str) -> Vec<&str> {
+fn get_bigrams(word: &str) -> Vec<Cow<str>> {
     
     // split a word into bigrams
 
-    let mut bigrams: Vec<&str> = Vec::new();
+    let mut bigrams: Vec<_> = Vec::new();
     
     let word_vec = word.chars().collect::<Vec<_>>();
 
 
     /*
-
-    ORIGINAL VERSION - THIS WORKS 
     for i in 0..(word.len()-1) {
     
         let bigram = &word[i..i+2];
@@ -69,8 +68,6 @@ fn get_bigrams(word: &str) -> Vec<&str> {
         bigrams.push(bigram);
     }
     */
-
-    // THIS DOESN'T WORK: 
 
     for i in 0..(word_vec.len()-1) {
 
@@ -82,18 +79,18 @@ fn get_bigrams(word: &str) -> Vec<&str> {
             new_bigram.push(*item);
         }
 
-        bigrams.push(&new_bigram);  
+        bigrams.push(Cow::Owned(new_bigram));
 
     }
 
-    return bigrams; // WON'T WORK: returns a value referencing data owned by the current function
+    return bigrams;
 
     
     
 }
 
 
-fn compare_bigrams(bigrams_a: &[&str], bigrams_b: &[&str]) -> u8 {
+fn compare_bigrams(bigrams_a: &[Cow<str>], bigrams_b: &[Cow<str>]) -> u8 {
     
     // count how many bigrams are common between two words
     
@@ -101,28 +98,10 @@ fn compare_bigrams(bigrams_a: &[&str], bigrams_b: &[&str]) -> u8 {
         
     for item_a in bigrams_a.iter() {
             
-        if is_in(item_a, &bigrams_b) {
+        if bigrams_b.contains(item_a) {
             common_count += 1;        
         }    
     }
         
     return common_count;
-}
-
-
-fn is_in(item: &str, vector: &[&str]) -> bool {
-    
-    // check if item is in vector
-
-    let mut result = false; 
-    
-    for i in vector.iter() {
-        if i.to_string() == item.to_string() {
-            result = true;
-            break;
-        }
-    }
-    
-    return result;
-    
 }
