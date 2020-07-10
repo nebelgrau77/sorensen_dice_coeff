@@ -1,6 +1,6 @@
 [package]
 name = "sdcoeff"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["nebelgrau <nebelgrau@gmx.com>"]
 edition = "2018"
 

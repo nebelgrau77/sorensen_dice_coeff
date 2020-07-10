@@ -60,6 +60,8 @@ fn get_bigrams(word: &str) -> Vec<&str> {
 
 
     /*
+
+    ORIGINAL VERSION - THIS WORKS 
     for i in 0..(word.len()-1) {
     
         let bigram = &word[i..i+2];
@@ -67,6 +69,8 @@ fn get_bigrams(word: &str) -> Vec<&str> {
         bigrams.push(bigram);
     }
     */
+
+    // THIS DOESN'T WORK: 
 
     for i in 0..(word_vec.len()-1) {
 
@@ -78,11 +82,11 @@ fn get_bigrams(word: &str) -> Vec<&str> {
             new_bigram.push(*item);
         }
 
-        bigrams.push(&new_bigram);
+        bigrams.push(&new_bigram);  
 
     }
 
-    return bigrams;
+    return bigrams; // WON'T WORK: returns a value referencing data owned by the current function
 
     
     
