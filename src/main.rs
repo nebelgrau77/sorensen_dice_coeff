@@ -56,14 +56,35 @@ fn get_bigrams(word: &str) -> Vec<&str> {
 
     let mut bigrams: Vec<&str> = Vec::new();
     
+    let word_vec = word.chars().collect::<Vec<_>>();
+
+
+    /*
     for i in 0..(word.len()-1) {
-        
+    
         let bigram = &word[i..i+2];
-        
+      
         bigrams.push(bigram);
+    }
+    */
+
+    for i in 0..(word_vec.len()-1) {
+
+        let bigram = &word_vec[i..i+2];
+
+        let mut new_bigram = "".to_string();
+
+        for item in bigram.iter() {
+            new_bigram.push(*item);
+        }
+
+        bigrams.push(&new_bigram);
+
     }
 
     return bigrams;
+
+    
     
 }
 
