@@ -35,7 +35,6 @@ fn main() {
       
 }
 
-
 fn sd_coeff(word_a: &str, word_b: &str) -> f32 {
     
     // calculate Sørensen–Dice coefficient
@@ -59,16 +58,6 @@ fn get_bigrams(word: &str) -> Vec<Cow<str>> {
     
     let word_vec = word.chars().collect::<Vec<_>>();
 
-
-    /*
-    for i in 0..(word.len()-1) {
-    
-        let bigram = &word[i..i+2];
-      
-        bigrams.push(bigram);
-    }
-    */
-
     for i in 0..(word_vec.len()-1) {
 
         let bigram = &word_vec[i..i+2];
@@ -85,10 +74,7 @@ fn get_bigrams(word: &str) -> Vec<Cow<str>> {
 
     return bigrams;
 
-    
-    
 }
-
 
 fn compare_bigrams(bigrams_a: &[Cow<str>], bigrams_b: &[Cow<str>]) -> u8 {
     
